@@ -1,0 +1,117 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row"></div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col-xl-6">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">
+                <a routerLink="/consultant" class="btn btn-sm">
+                  <i class="fa fa-arrow-left"></i> </a>&nbsp; {{title}}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (submit)="onSubmit()" autocomplete="off">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="First Name" formControlName="first_name" />
+              <small class="form-text text-danger" *ngIf="
+                registerForm.get('first_name')?.hasError('required') &&
+                (registerForm.get('first_name').dirty ||
+                registerForm.get('first_name').touched ||
+                submitted)
+              ">
+                Please enter first name
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name" />
+            </div>
+
+            <div class="mb-3" *ngIf="!isEdit">
+              <input type="email" class="form-control" placeholder="Email" formControlName="email" />
+              <small class="form-text text-danger" *ngIf="
+                registerForm.get('email')?.hasError('required') &&
+                (registerForm.get('email').dirty ||
+                registerForm.get('email').touched ||
+                submitted)
+              ">
+                Please enter email
+              </small>
+              <small class="form-text text-danger" *ngIf="
+                !registerForm.get('email')?.hasError('required') &&
+                registerForm.get('email').invalid &&
+                (registerForm.get('email').dirty ||
+                registerForm.get('email').touched ||
+                submitted)
+              ">
+                Please enter a valid email
+              </small>
+            </div>
+
+            <!-- mobile -->
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Phone" formControlName="mobile"
+                autocomplete="" />
+              <small class="form-text text-danger" *ngIf="
+                registerForm.get('mobile')?.hasError('required') &&
+                (registerForm.get('mobile').dirty ||
+                registerForm.get('mobile').touched ||
+                submitted)
+              ">
+                Please enter phone
+              </small>
+            </div>
+            <!-- end mobile -->
+
+
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                autocomplete="pppp" />
+              <small class="form-text text-danger" *ngIf="
+                registerForm.get('password')?.hasError('required') &&
+                (registerForm.get('password').dirty ||
+                registerForm.get('password').touched ||
+                submitted)
+              ">
+                Please enter password
+              </small>
+            </div>
+
+            <!-- cpassword -->
+            <div class="mb-3">
+              <input type="password" class="form-control" formControlName="cpassword" required>
+              <div *ngIf="registerForm.get('cpassword')?.errors&&(submitted || registerForm.get('cpassword')?.dirty||registerForm.get('password')?.touched)">
+                <small class="lq-error" *ngIf="registerForm.get('cpassword')?.hasError('required')">Confirm password is required</small>
+                <small class="lq-error" *ngIf="registerForm.get('cpassword')?.hasError('passwordsNotMatching')"> Confirm password does not match</small>
+                </div>
+            </div>
+            <!-- end cpassword -->
+
+            <small class="form-text text-danger" *ngIf="
+              !registerForm.get('email')?.hasError('required') &&
+              submitted &&
+              loginFailed &&
+              errMessage
+            ">
+              {{ errMessage }}
+            </small>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

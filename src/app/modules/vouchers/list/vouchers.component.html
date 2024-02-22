@@ -1,0 +1,79 @@
+<app-page-header>
+  <app-vouchers-header *ngIf="pageType==0" [type]="type" (typeChange)="typeChange($event)"></app-vouchers-header>
+  <app-vouchers-order-header *ngIf="pageType==1" [type]="type" [currentPage]="currentPage"
+    (typeChange)="typeChange($event)"></app-vouchers-order-header>
+</app-page-header>
+<app-page-body [title]="pageType==0?'Vouchers':'Voucher Orders'">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" *ngIf="pageType!=0"></th>
+      <th scope="col" *ngIf="pageType!=0">PO Number</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Type</th>
+      <th scope="col">Voucher Amount</th>
+      <th scope="col">Used</th>
+      <th scope="col" *ngIf="pageType!=0">Consultant Name</th>
+      <th scope="col" *ngIf="pageType!=0">Consultant Email</th>
+      <th scope="col" *ngIf="pageType!=0">Client Name</th>
+      <th scope="col" *ngIf="pageType!=0">Client Email</th>
+      <th scope="col">Expiry Date</th>
+      <th scope="col" *ngIf="pageType!=0">Purchased Date</th>
+      <th scope="col" *ngIf="pageType!=0">Email Sent</th>
+      <th scope="col" *ngIf="pageType!=0">voucher Links</th>
+      <th scope="col" *ngIf="pageType!=0">Status</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="voucher.length; else noVoucherExist">
+      <tr *ngFor="let eq of voucher; let eqindex = index">
+        <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+        <td *ngIf="pageType!=0"><input type="checkbox" class="form-check" name="tick" id="tick" [checked]="eq?.tick==1"
+            (change)="onCheckboxChange($event,eq.id,eqindex)"></td>
+        <td *ngIf="pageType!=0">{{ eq.purchaseOrderNumber | uppercase }}</td>
+        <td>{{ eq.company_name | uppercase }}</td>
+        <td>
+          <span class="badge badge-dot mr-4" *ngIf="eq.type == 1">Food</span>
+          <span class="badge badge-dot mr-4" *ngIf="eq.type == 2">Fuel</span>
+        </td>
+        <td> ${{ eq.value }} AUD</td>
+        <td>
+          <span class="badge badge-dot mr-4" *ngIf="eq.isUsed == 0">Not used</span>
+          <span class="badge badge-dot mr-4" *ngIf="eq.isUsed == 1">
+            <span class="tick" [ngClass]="{'tick-paid': eq?.tick==1,'tick-pending': eq?.tick==0}">&#10004;</span>
+          </span>
+        </td>
+        <td *ngIf="pageType!=0">{{ eq.consultant_name || 'N/A'}}</td>
+        <td *ngIf="pageType!=0">{{ eq.consultant_email || 'N/A'}}</td>
+        <td *ngIf="pageType!=0">{{ eq.client_name || 'N/A'}}</td>
+        <td *ngIf="pageType!=0">{{ eq.client_email || 'N/A'}}</td>
+        <td>{{ eq.expiry_date || 'N/A'}}</td>
+        <td *ngIf="pageType!=0">{{ eq.buying_date | date:'dd/MM/yyyy hh:mm a'}}</td>
+        <td *ngIf="pageType!=0">{{ eq.isMailSend==1?'Yes':'No'}}</td>
+        <td *ngIf="pageType!=0"><button class="btn btn-secondary" (click)="viewLinks(eq)">View
+            Links</button></td>
+        <td *ngIf="pageType!=0">
+          <list-row [eq]="eq" [eqindex]="eqindex" (statusChange)="changeStatus($event)"></list-row>
+        </td>
+        <td class="text-right dropdown-fixed">
+          <div ngbDropdown [placement]="eqindex > 7 ? 'left' : 'left'">
+            <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle><i class="fas fa-ellipsis-v"></i></a>
+            <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+              <a (click)="deleteVoucher(eq.id, eqindex)" class="dropdown-item" href="javascript:void(0)"
+                *ngIf="pageType==0">Delete Voucher</a>
+              <a class="dropdown-item" [routerLink]="'/voucher/detail/' + eq.id">Voucher Details</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noVoucherExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No voucher found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

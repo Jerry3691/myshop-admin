@@ -1,0 +1,17 @@
+<!-- <pre *ngIf="list">{{list|json}}</pre> -->
+<ul>
+  
+  <li *ngIf="list.length==0">No notification found</li>
+  <li *ngFor="let item of list">
+    <h3>{{item.title}}</h3>
+    <p>{{item.message}}</p>
+  </li>
+</ul>
+<div class="header_notification">
+  <h3 class="title_noti">Notifications</h3>
+  <button class="close-noti" (click)="closeDrop()">X</button>
+</div>
+
+<div class="clear-all-wrapper" *ngIf="list.length>0">
+  <button type="button" (click)="clearAll()" class="btn btn-danger w-100">Clear All</button>
+</div>

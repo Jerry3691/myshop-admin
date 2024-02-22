@@ -1,0 +1,10 @@
+
+.bell .drp-toggle::after {
+    display: none !important;
+    margin-left: 0.6rem;
+  }
+  .notification-block{
+    height: 400px;
+    width: 350px;
+    overflow-y: auto;
+  }

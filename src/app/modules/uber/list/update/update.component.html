@@ -1,0 +1,160 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Uber checkout</h4>
+    <button type="button" class="btn btn-close" aria-label="Close"
+        (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="customerOrderForm" (ngSubmit)="onSubmit()" id="form">
+        <div class="row">
+        <div class="form-group col-md-6">
+            <label for="name">Job-seeker/Client Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" noExtraSpaces [maxlength]="255"
+                [readonly]="true">
+            <div
+                *ngIf="customerOrderForm.get('name').invalid && (customerOrderForm.get('name').dirty || customerOrderForm.get('name').touched||submit)">
+                <div *ngIf="customerOrderForm.get('name').errors.required" class="text-danger">Name is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="mobileNumber">Job-seeker/Client Mobile Number</label>
+            <input type="text" class="form-control" id="mobileNumber" formControlName="mobileNumber" onlyNumber2
+                [plusAtStart]="true" [plus]="true" [maxlength]="20" [readonly]="true">
+            <div
+                *ngIf="customerOrderForm.get('mobileNumber').invalid && (customerOrderForm.get('mobileNumber').dirty || customerOrderForm.get('mobileNumber').touched||submit)">
+                <div *ngIf="customerOrderForm.get('mobileNumber').errors.required" class="text-danger">Mobile number is
+                    required.</div>
+                <div *ngIf="customerOrderForm.get('mobileNumber').errors.pattern" class="text-danger">Mobile number
+                    should contain only numbers.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="purchaseOrderNumber">Purchase Order Number</label>
+            <input type="text" class="form-control" id="purchaseOrderNumber" formControlName="purchaseOrderNumber"
+                disabled>
+            <div
+                *ngIf="customerOrderForm.get('purchaseOrderNumber').invalid && (customerOrderForm.get('purchaseOrderNumber').dirty || customerOrderForm.get('purchaseOrderNumber').touched||submit)">
+                <div *ngIf="customerOrderForm.get('purchaseOrderNumber').errors.required" class="text-danger">Purchase
+                    order number is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="purchaseOrderAmount">Purchase Order Amount</label>
+            <input type="text" class="form-control" id="purchaseOrderAmount" formControlName="purchaseOrderAmount"
+                onlyNumber2 [decimal]="true">
+            <!-- <div
+            *ngIf="customerOrderForm.get('purchaseOrderAmount').invalid && (customerOrderForm.get('purchaseOrderAmount').dirty || customerOrderForm.get('purchaseOrderAmount').touched||submit)">
+            <div *ngIf="customerOrderForm.get('purchaseOrderAmount').errors.required" class="text-danger">Purchase order amount is required.
+            </div>
+        </div> -->
+        </div>
+
+        <!-- <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="scheduledTrip" formControlName="scheduledTrip" disabled >
+        <label class="form-check-label" for="scheduledTrip" >Scheduled Trip</label>
+    </div> -->
+
+        <div class="mb-1 col-md-6">
+            <label for="type" class="form-label">Scheduled Trip/ Flexible<small class="text-danger">*</small></label>
+            <div class="d-flex gap-2  flex-lg-row">
+                <div class="form-group">
+                    <input type="radio" name="scheduledTrip" id="type-1" formControlName="scheduledTrip" value="1"
+                        disabled>
+                    <label for="type-1" class="form-label mx-3">Scheduled</label>
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="scheduledTrip" id="type-2" formControlName="scheduledTrip" value="2"
+                        disabled>
+                    <label for="type-2" class="form-label mx-3">Flexible</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-check col-md-6">
+            <input type="checkbox" class="form-check-input" id="returnTripRequired" formControlName="returnTripRequired"
+                disabled>
+            <label class="form-check-label" for="returnTripRequired">Return Trip Required</label>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" id="notes" formControlName="notes" [readonly]="true"></textarea>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="pickupDateTimeOfTrips">Pickup Date and Time of Trips</label>
+            <input type="datetime-local" class="form-control" id="pickupDateTimeOfTrips"
+                formControlName="pickupDateTimeOfTrips" [min]="getDateFormat()" [readonly]="false">
+            <div
+                *ngIf="customerOrderForm.get('pickupDateTimeOfTrips').invalid && (customerOrderForm.get('pickupDateTimeOfTrips').dirty || customerOrderForm.get('pickupDateTimeOfTrips').touched||submit)">
+                <div *ngIf="customerOrderForm.get('pickupDateTimeOfTrips').errors.required" class="text-danger">Pickup
+                    Date and time of trips are required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6" [hidden]="customerOrderForm.get('returnTripRequired').value==false">
+            <label for="returnDateTimeOfTrips"> Return Date and Time of Trips</label>
+            <input type="datetime-local" class="form-control" id="returnDateTimeOfTrips"
+                formControlName="returnDateTimeOfTrips" [min]="getDateFormat()" [readonly]="false">
+            <div *ngIf="(submit || customerOrderForm.get('returnDateTimeOfTrips').touched) && customerOrderForm.get('returnDateTimeOfTrips').invalid"
+                class="text-danger">
+                <div *ngIf="customerOrderForm.get('returnDateTimeOfTrips').errors.required">Return date time of trip is
+                    required</div>
+            </div>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="pickUpAddress">Pick-up Address</label>
+            <input type="text" class="form-control" id="pickUpAddress" formControlName="pickUpAddress"
+                [readonly]="true">
+            <div
+                *ngIf="customerOrderForm.get('pickUpAddress').invalid && (customerOrderForm.get('pickUpAddress').dirty || customerOrderForm.get('pickUpAddress').touched||submit)">
+                <div *ngIf="customerOrderForm.get('pickUpAddress').errors.required" class="text-danger">Pick-up address
+                    is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="dropOffAddress">Drop-off Address</label>
+            <input type="text" class="form-control" id="dropOffAddress" formControlName="dropOffAddress"
+                [readonly]="true">
+            <div
+                *ngIf="customerOrderForm.get('dropOffAddress').invalid && (customerOrderForm.get('dropOffAddress').dirty || customerOrderForm.get('dropOffAddress').touched||submit)">
+                <div *ngIf="customerOrderForm.get('dropOffAddress').errors.required" class="text-danger">Drop-off
+                    address is required.</div>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="consultantId">Consultant ID</label>
+            <input type="text" class="form-control" id="consultantId" formControlName="consultantId" [readonly]="true">
+            <div
+                *ngIf="customerOrderForm.get('consultantId').invalid && (customerOrderForm.get('consultantId').dirty || customerOrderForm.get('consultantId').touched||submit)">
+                <div *ngIf="customerOrderForm.get('consultantId').errors.required" class="text-danger">Consultant ID is
+                    required.</div>
+            </div>
+        </div> -->
+
+        <div class="form-group col-md-6">
+            <label for="status">Status</label>
+            <select formControlName="status" class="form-control" id="status">
+                <option value="1">Approve</option>
+                <option value="2">Decline</option>
+                <option value="3">Pending</option>
+            </select>
+        </div>
+    </div>
+
+        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close()">Cancel</button>
+    <button type="submit" class="btn btn-primary" form="form">Update</button>
+</div>

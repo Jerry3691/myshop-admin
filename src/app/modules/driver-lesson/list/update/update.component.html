@@ -1,0 +1,109 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Driving Lessons Update</h4>
+    <button type="button" class="btn btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+
+<form [formGroup]="customerOrderForm" (ngSubmit)="onSubmit()" id="form">
+    <div class="form-group">
+        <label for="name">Job-seeker/Client Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" noExtraSpaces [maxlength]="255" [readonly]="true" >
+        <div
+            *ngIf="customerOrderForm.get('name').invalid && (customerOrderForm.get('name').dirty || customerOrderForm.get('name').touched||submit)">
+            <div *ngIf="customerOrderForm.get('name').errors.required" class="text-danger">Name is required.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Job-seeker/Client email</label>
+        <input type="text" class="form-control" id="email" formControlName="email"  [readonly]="true" >
+        <div
+            *ngIf="customerOrderForm.get('email').invalid && (customerOrderForm.get('email').dirty || customerOrderForm.get('email').touched||submit)">
+            <div *ngIf="customerOrderForm.get('email').errors.required" class="text-danger">Email is required.</div>
+            <div *ngIf="customerOrderForm.get('email').errors.pattern || customerOrderForm.get('email').errors.email" class="text-danger">Email is not valid.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="mobileNumber">Job-seeker/Client Mobile Number</label>
+        <input type="text" class="form-control" id="mobileNumber" formControlName="mobileNumber" onlyNumber2 [plusAtStart]="true" [plus]="true" [maxlength]="20" [readonly]="true" >
+        <div
+            *ngIf="customerOrderForm.get('mobileNumber').invalid && (customerOrderForm.get('mobileNumber').dirty || customerOrderForm.get('mobileNumber').touched||submit)">
+            <div *ngIf="customerOrderForm.get('mobileNumber').errors.required" class="text-danger">Mobile number is required.</div>
+            <div *ngIf="customerOrderForm.get('mobileNumber').errors.pattern" class="text-danger">Mobile number should contain only numbers.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="purchaseOrderNumber">Purchase Order Number</label>
+        <input type="text" class="form-control" id="purchaseOrderNumber" formControlName="purchaseOrderNumber">
+        <div
+            *ngIf="customerOrderForm.get('purchaseOrderNumber').invalid && (customerOrderForm.get('purchaseOrderNumber').dirty || customerOrderForm.get('purchaseOrderNumber').touched||submit)">
+            <div *ngIf="customerOrderForm.get('purchaseOrderNumber').errors.required" class="text-danger">Purchase order number is required.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="purchaseOrderAmount">Purchase Order Amount</label>
+        <input type="text" class="form-control" id="purchaseOrderAmount" formControlName="purchaseOrderAmount" onlyNumber2 [decimal]="true">
+        <!-- <div
+            *ngIf="customerOrderForm.get('purchaseOrderAmount').invalid && (customerOrderForm.get('purchaseOrderAmount').dirty || customerOrderForm.get('purchaseOrderAmount').touched||submit)">
+            <div *ngIf="customerOrderForm.get('purchaseOrderAmount').errors.required" class="text-danger">Purchase order amount is required.
+            </div>
+        </div> -->
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <textarea class="form-control" id="address" formControlName="address" [readonly]="true" ></textarea>
+        <div *ngIf="customerOrderForm.get('address').invalid && (customerOrderForm.get('address').dirty || customerOrderForm.get('address').touched||submit)">
+            <div *ngIf="customerOrderForm.get('address').errors.required" class="text-danger">Address is required.</div>
+          </div>
+    </div>
+    <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea class="form-control" id="notes" formControlName="notes" [readonly]="true" ></textarea>
+    </div>
+
+    
+    <!-- <div class="form-group">
+        <label for="consultantId">Consultant ID</label>
+        <input type="text" class="form-control" id="consultantId" formControlName="consultantId" [readonly]="true" >
+        <div *ngIf="customerOrderForm.get('consultantId').invalid && (customerOrderForm.get('consultantId').dirty || customerOrderForm.get('consultantId').touched||submit)">
+            <div *ngIf="customerOrderForm.get('consultantId').errors.required" class="text-danger">Consultant ID is required.</div>
+          </div>
+    </div> -->
+
+    <div class="mb-1">
+        <label for="type" class="form-label">Delivery / Pick Up<small class="text-danger">*</small></label>
+        <div class="d-flex gap-2  flex-lg-row">
+            <div class="mb-3">
+                <input type="radio" name="type" id="type-1" formControlName="type" value="1">
+                <label for="type-1" class="form-label mx-3">Delivery</label>
+            </div>
+            <div class="mb-3">
+                <input type="radio" name="type" id="type-2" formControlName="type" value="2">
+                <label for="type-2" class="form-label mx-3">Pick Up</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select formControlName="status" class="form-control" id="status">
+            <option value="1">Approve</option>
+            <option value="2">Decline</option>
+            <option value="3">Pending</option>
+        </select>
+    </div>
+
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+</form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close()" >Cancel</button>
+    <button type="submit" class="btn btn-outline-primary" form="form" >Update</button>
+</div>

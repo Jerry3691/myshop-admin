@@ -1,0 +1,21 @@
+.modal-content, .heading, h6, .close span {
+  color: #fff;
+}
+
+
+.navigation .navbar-brand img {
+  max-width: 120px!important;
+  max-height: 200px!important;
+  width: 100%;
+  display: inline-block;
+}
+
+.bell .drp-toggle::after {
+  display: none !important;
+  margin-left: 0.6rem;
+}
+.notification-block{
+  height: 400px;
+  width: 350px;
+  overflow-y: auto;
+}

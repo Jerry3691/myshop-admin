@@ -1,0 +1,36 @@
+tbody.collapse.in {
+  display: table-row-group;
+}
+
+
+.categories_outer > ul {
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.categories_outer > ul > li {
+  list-style-type: none;
+}
+
+.parent-item {
+  padding: 10px 15px;
+  background: #f8f9fe;
+  /* max-width: 500px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.parent-item > span{
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.child-item ul {
+  padding-left: 15px;
+}
+.child-item ul .parent-item {
+  background: #fff;
+}
+.parent-item > span i {
+  width: 20px;
+}

@@ -1,0 +1,159 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <!-- <div class="header-body">
+      <div class="row">
+        <div class="col-12 text-right">
+          <a routerLink="/product/add" class="btn btn-primary ">
+            Add new Product
+          </a>
+        </div>
+      </div>
+    </div> -->
+    <div class="header-body invoice_list_header mb--3 mb-md-0">
+      <!-- Card stats -->
+      <div class="row align-items-end">
+        <div class="col-md-12 col-lg-9 order-1 order-lg-0">
+          <div class="row align-items-end">
+            <!-- <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+              <input
+                type="search"
+                class="form-control form-control-alternative"
+                [value]="search"
+                placeholder="Search"
+              />
+            </div>
+            <ul class="list-group list-group-flush">
+              <li
+                class="list-group-item"
+                *ngFor="
+                  let c of categoriesService.categories$
+                    | async
+                    | arrayFilter: search
+                "
+              >
+                {{ c.category }}
+              </li>
+            </ul> -->
+            <!-- <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+              <label for="" class="text-dark">Filter by category</label>
+              <p-treeSelect [(ngModel)]="category"(onNodeSelect)="categoryChange($event)"   [options]="categoriesService.modifiedCategoryDropdownList$ | async" placeholder="---"></p-treeSelect>
+            </div>
+            <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+             <input type="search" name="search" class="form-control" [value]="search" placeholder="Search" (keydown.enter)="onSearch($event.target.value)" id="">
+            </div> -->
+          </div>
+        </div>
+        <div
+          class="col-md-12 col-lg-3 text-right order-0 order-lg-1 mb-3 mb-lg-0"
+        >
+          <!-- <button type="button" class="btn btn-primary" (click)="exportOrders()">
+            Export orders
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Phone Recharge Requests</h3>
+        </div>
+        <div class="table-responsive desktop-overflow-none">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Consultant name</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Service provider</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+                <!-- <th scope="col"></th> -->
+              </tr>
+            </thead>
+            <tbody>
+
+              <ng-container *ngIf="orders.length; else noProductExist">
+                <tr *ngFor="let eq of orders; let eqindex = index">
+                  <td>
+                    {{ (currentPage - 1) * perPage + (eqindex + 1) }}
+                  </td>
+                  <td>
+                    {{ eq.consultant_name || 'N/A'}}
+                  </td>
+                  <td>
+                    {{ (eq.phone_number| titlecase)  || "N/A" }}
+                  </td>
+                  <td>
+                    {{ eq.quantity || "N/A" }}
+                  </td>
+                  <td>
+                    {{ (eq.service_provider| titlecase ) || "N/A" }}
+                  </td>
+                  <td>
+                    ${{eq.amount}} AUD
+                  </td>
+                  <td [ngSwitch]="eq.status">
+                    <span class="badge badge-dot mr-4" *ngSwitchCase="'1'">
+                      Pending
+                    </span>
+                    <span class="badge badge-dot mr-4" *ngSwitchCase="'2'">
+                      Complete
+                    </span>
+                    <span class="badge badge-dot mr-4" *ngSwitchCase="'3'">
+                      Reject
+                    </span>
+                    <span class="badge badge-dot mr-4" *ngSwitchDefault>
+                      N/A
+                    </span>
+                  </td>
+                  <!-- <td class="text-right dropdown-fixed">
+                    <div
+                      ngbDropdown
+                      [placement]="eqindex > 7 ? 'left' : 'left'"
+                    >
+                      <a
+                        class="btn btn-sm btn-icon-only text-light"
+                        ngbDropdownToggle
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div
+                        ngbDropdownMenu
+                        class="dropdown-menu-right dropdown-menu-arrow"
+                      >
+                        <a [routerLink]="'./'+eq.order_id"
+                          class="dropdown-item"
+                        >
+                          Order details
+                        </a>
+                      </div>
+                    </div>
+                  </td> -->
+                </tr>
+              </ng-container>
+              <ng-template #noProductExist>
+                <tr>
+                  <th class="no-record-found" colspan="8">No record found</th>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <app-pagination
+            [currentPage]="currentPage"
+            [totalPage]="totalPage"
+            (pageChange)="onPageChange($event)"
+          ></app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

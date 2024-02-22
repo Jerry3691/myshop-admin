@@ -1,0 +1,40 @@
+<app-page-header></app-page-header>
+<app-page-body title="Declined voucher orders list">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">PO</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Voucher Amount</th>
+      <th scope="col">Client Name</th>
+      <th scope="col">Client Email</th>
+      <th scope="col">Consultant Name</th>
+      <th scope="col">Consultant Email</th>
+      <th scope="col">Declined By</th>
+      <th scope="col">Declined Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="voucher.length; else noVoucherExist">
+      <tr *ngFor="let eq of voucher; let eqindex = index">
+        <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+        <td>{{ eq.purchaseOrderNumber }}</td>
+        <td>{{ eq.company_name | uppercase }}</td>
+        <td> ${{ eq.value }} AUD</td>
+        <td>{{ eq.client_name || 'N/A'}}</td>
+        <td>{{ eq.client_email || 'N/A'}}</td>
+        <td>{{ eq.consultant_name || 'N/A'}}</td>
+        <td>{{ eq.consultant_email || 'N/A'}}</td>
+        <td>{{ eq.cancel_by || 'N/A'}}</td>
+        <td>{{ eq.created_at | date:'dd/MM/yyyy hh:mm a'||'N/A'}}</td>
+      </tr>
+    </ng-container>
+    <ng-template #noVoucherExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No voucher found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

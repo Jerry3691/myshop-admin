@@ -1,0 +1,26 @@
+
+.preview_wrapper div.img-insert {
+  position: relative;
+  background: #212121;
+  border-radius: 5px;
+  height: 148px;
+  width: 310px;
+  cursor: pointer;
+}
+
+div.img-insert:after {
+  content: "\2b";
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%);
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 0;
+}
+.img-insert input{
+  opacity: 0;
+  height: 165px;
+  cursor: pointer;
+}

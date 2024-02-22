@@ -1,0 +1,19 @@
+.tick {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tick-paid {
+    color: green
+}
+
+.tick-pending {
+    color: #4b4b444a
+}
+
+
+.cross {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+}

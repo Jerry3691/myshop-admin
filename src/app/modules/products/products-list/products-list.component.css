@@ -1,0 +1,11 @@
+/* Style the dragged row */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the table rows when being dragged over */
+.cdk-drop-list-dragging .table > tbody > tr.cdk-drop-list-dragging-over {
+  background-color: #f7fafc;
+}

@@ -1,0 +1,10 @@
+.tick{
+font-size: 20px;
+color: green;
+font-weight: bold;
+}
+.cross{
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+    }

@@ -1,0 +1,107 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row"></div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col-xl-6">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">
+                <a (click)="navigateBack()" class="btn btn-sm">
+                  <i class="fa fa-arrow-left"></i> </a>&nbsp; {{type==1?'Add':'Edit'}} Voucher Category
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="voucherFormCategory" (ngSubmit)="onSubmit()">
+            <div class="px-lg-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="company_name">
+                      Company name<sup style="color: red">*</sup>
+                    </label>
+                    <select formControlName="company_name" class="form-control form-control-alternative">
+                      <option [value]="item" *ngFor="let item of voucherCateogry">{{item}}</option>
+                    </select>
+                    <small class="form-text text-danger form-error" *ngIf="
+                        voucherFormCategory.get('company_name').hasError('required') &&
+                        (voucherFormCategory.get('company_name').dirty ||
+                          voucherFormCategory.get('company_name').touched ||
+                          submitted)
+                      ">
+                      Please enter company name
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="type">
+                      Voucher type<sup style="color: red">*</sup>
+                    </label>
+                    <select formControlName="type" class="form-control form-control-alternative">
+                      <option value="food">Food Vouchers</option>
+                      <option value="fuel">Fuel Vouchers</option>
+                    </select>
+                    <small class="form-text text-danger form-error" *ngIf="
+                        voucherFormCategory.get('type').hasError('required') &&
+                        (voucherFormCategory.get('type').dirty ||
+                          voucherFormCategory.get('type').touched ||
+                          submitted)
+                      ">
+                      Please select voucher type
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="company_name">
+                      Voucher value<sup style="color: red">*</sup>
+                    </label>
+                    <input id="value" class="form-control form-control-alternative" type="text" appOnlyNumber
+                      placeholder="voucher value" formControlName="value" autocomplete="value" maxlength="5" />
+                    <small class="form-text text-danger form-error" *ngIf="
+                        voucherFormCategory.get('value').hasError('required') &&
+                        (voucherFormCategory.get('value').dirty ||
+                          voucherFormCategory.get('value').touched ||
+                          submitted)
+                      ">
+                      Please enter voucher value
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-xl-6 ">
+      <div class="card bg-secondary shadow h-100">
+        <img src="" alt="">
+      </div>
+      </div> -->
+  </div>
+</div>

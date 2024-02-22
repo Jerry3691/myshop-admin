@@ -1,0 +1,155 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row"></div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">
+                <a (click)="navigateBack()" class="btn btn-sm">
+                  <i class="fa fa-arrow-left"></i> </a>&nbsp; Voucher details
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!-------------------order detail new---------------->
+
+        <div class="row m-3 ">
+          <div class="col-lg-6 ">
+            <div class="order_detail">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">PO Number</label>
+                  <span>
+                    <strong>{{voucher.purchaseOrderNumber||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Company Name</label>
+                  <span>
+                    <strong>{{voucher.company_name||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Type</label>
+                  <span>
+                    <strong>{{voucher.type==1?'Food':voucher.type==2?'Fuel':'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Client Name</label>
+                  <span>
+                    <strong>{{voucher.client_name||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Client Email</label>
+                  <span>
+                    <strong>{{voucher.client_email||'N/A'}}</strong>
+                  </span>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Consultant Name</label>
+                  <span>
+                    <strong> {{voucher.consultant_name||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Consultant Email</label>
+                  <span>
+                    <strong> {{voucher.consultant_email||'N/A'}}</strong>
+                  </span>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Purchased Date</label>
+                  <span>
+                    <strong> {{voucher.buying_date | date:'dd/MM/yyyy hh:mm a'||'N/A'}}</strong>
+                  </span>
+                </div>
+
+
+
+                <!-- <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Purchase Date</label>
+                  <span>
+                    <strong>{{voucher?.created_at | date:'dd/MM/yyyy hh:mm a' ||'N/A'}}</strong>
+                  </span>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="order_detail">
+              <div class="row g-3">
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Amout</label>
+                  <span>
+                    <strong>${{voucher.value||'0'}} AUD</strong>
+                  </span>
+                </div>
+
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Card Number</label>
+                  <span>
+                    <strong> {{voucher.card_number||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Expiry Date</label>
+                  <span>
+                    <strong>{{voucher?.expiry_date||'N/A'}}</strong>
+                  </span>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Pin</label>
+                  <span>
+                    <strong> {{voucher.pin||'N/A'}}</strong>
+                  </span>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">15 Digits Code</label>
+                  <span>
+                    <strong> {{voucher.code||'N/A'}}</strong>
+                  </span>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label col-6 col-sm-4">Serial Number</label>
+                  <span>
+                    <strong> {{voucher.serial_number||'N/A'}}</strong>
+                  </span>
+                </div>
+                <div class="col-12 voucher-link-div">
+                  <label class="form-label col-6 col-sm-4">Voucher Link</label>
+                  <span>
+                    <strong> {{voucher.link||'N/A'}}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

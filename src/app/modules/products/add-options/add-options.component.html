@@ -1,0 +1,31 @@
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form (submit)="onSubmit()" [formGroup]="optionGroupForm">
+  <div class="modal-body">
+      <div class="form-group">
+        <div formArrayName="options">
+          <div *ngFor="let option of options.controls; let i=index">
+            <div [formGroupName]="i">
+              <div class="d-flex justify-content-between mt-3 mb-1">
+
+                <label for="option">Option{{i+1}}</label>
+                <button class="btn btn-outline-danger btn-sm"  *ngIf="i>0" (click)="removeOption(i)">Remove</button>
+              </div>
+              <input class="form-control" placeholder="option" formControlName="option">
+<small class="text-danger" *ngIf="option.get('option').hasError('required') && (this.submitted||option.get('option').touched||option.get('option').dirty)">This field is required</small>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-secondary btn-sm mt-3" type="button" (click)="addOptions()">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>

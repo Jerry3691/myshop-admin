@@ -1,0 +1,21 @@
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 d-flex justify-content-between">
+          <h3 class="mb-0">{{title|titlecase}}</h3>
+          <ng-content select="[additional]"></ng-content>
+        </div>
+        <div class="table-responsive desktop-overflow-none order-tables-style">
+          <table class="table align-items-center table-flush">
+            <ng-content select="thead"></ng-content>
+            <ng-content select="tbody"></ng-content>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <ng-content select="app-pagination"></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

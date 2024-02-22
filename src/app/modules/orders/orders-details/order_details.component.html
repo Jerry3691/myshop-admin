@@ -1,0 +1,196 @@
+<div class="header bg-gradient-dark pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row"></div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">
+                <a (click)="navigateBack()" class="btn btn-sm">
+                  <i class="fa fa-arrow-left"></i> </a>&nbsp; Order details
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!-------------------order detail new---------------->
+
+        <div class="row m-3 ">
+          <div class="col-lg-6 ">
+            <div class="order_detail">
+              <div class="row g-3">
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Client Name</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong>{{order.client_name}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Client Mobile</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong><a href="tel:{{order.mobileNumber}}"> </a>{{order.mobileNumber}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Client Address</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong>{{order.address}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Consultant Name</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.consultant_name}}</strong>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Consultant Email</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong><a href="mailto:{{order.consultant_email}}">{{order.consultant_email}}</a></strong>
+                    </span>
+                  </div>
+                </div>
+                <!-- <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Consultant Id</label>
+                  <span>
+                    <strong> {{order.consultant_id_key}}</strong>
+                  </span>
+                </div> -->
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Delivery/Pick up</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.type==1?'Delivery':'Pick Up'}}</strong>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6 text-danger">Notes/Delivery Address*</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.message}}</strong>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="order_detail">
+              <div class="row g-3">
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Order Number</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong>{{order.order_number}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Ordered Placed Date</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.ordered_placed_date|date:'dd/MM/yyyy, hh:mm a':'GMT+0930'}}</strong>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Order Status</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.order_status}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Order Log Time</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong>{{order.ordered_placed_date|date:'dd/MM/yyyy, hh:mm a':'GMT+0930'}}</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Grand Total</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong>${{order.grand_total}} AUD</strong>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex">
+                  <label class="form-label col-6 col-sm-6">Order Mode</label>
+                  <div class="col-6 col-sm-6">
+                    <span>
+                      <strong> {{order.delivery_type==1?'Normal':'Same day'}}</strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-------------------order detail new end---------------->
+
+
+        <div class="table-responsive desktop-overflow-none">
+          <h2 class="m-4">Products</h2>
+          <table class="table align-items-center table-flush ">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Product Total Price</th>
+                <th scope="col">Tax</th>
+                <th scope="col">Options</th>
+                <!-- <th scope="col">Notes</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.products">
+                <td>{{item.product_name}}</td>
+                <td>${{item.product_price}} AUD</td>
+                <td>{{item.product_quantity}}</td>
+                <td>{{item.product_total_price}}</td>
+                <td>{{item.tax}}</td>
+                <td>
+                  <div>
+                    <span *ngFor="let option of parseJSON(item.options); let oIndex = index">{{option.group_name}} :
+                      {{option.name}}{{oIndex !== parseJSON(item.options).length - 1 ? ', ' : ''}}</span>
+                  </div>
+                </td>
+                <!-- <td>{{item.}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

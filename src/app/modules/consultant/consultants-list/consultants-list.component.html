@@ -1,0 +1,71 @@
+<app-page-header>
+  <div class="row">
+    <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+      <input type="search" name="search" class="form-control" [value]="search" placeholder="Search"
+        (search)="onSearch($event.target.value)" id="">
+    </div>
+    <div class="col-lg-9 col-6 mb-2 mb-lg-0 text-right">
+      <a routerLink="./add" class="btn btn-primary"> Add new user </a>
+    </div>
+  </div>
+</app-page-header>
+<app-page-body title="Users List">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Created On</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="users.length; else noEquipmentExist">
+      <tr *ngFor="let user of users; let eqindex = index">
+        <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+        <td>{{ user.first_name | titlecase }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <ng-container *ngIf="isStatusChange">
+            <select [ngModel]="user.isApprove" class="" (change)="changeStatus(user.id,$event.target.value,eqindex)">
+              <option [value]="1">Approve</option>
+              <option [value]="2">Decline</option>
+              <option [value]="3">Pending</option>
+            </select>
+          </ng-container>
+          <ng-container *ngIf="!isStatusChange">
+            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==1" (click)="isStatusChange=true">
+              <i class="bg-success"></i>
+              Approved
+            </span>
+            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==2" (click)="isStatusChange=true">
+              <i class="bg-danger"></i>
+              Declined
+            </span>
+            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==3" (click)="isStatusChange=true">
+              <i class="bg-warning"></i>
+              Pending
+            </span>
+          </ng-container>
+        </td>
+        <td>{{ user.created_at | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="btn" (click)="deleteUser(user.id)"><i class="fa fa-trash text-danger"></i></button>
+          <a class="btn" [routerLink]="['./edit/'+user.id]" routerLinkActive="router-link-active"><i
+              class="fa fa-edit text-warning"></i></a>
+          <!-- <button class="btn" (click)="sendEmail(user)"><i class="fa fa-envelope" aria-hidden="true"></i></button> -->
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noEquipmentExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No record found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

@@ -1,0 +1,25 @@
+<div class="row align-items-end">
+    <div class="col-lg-3 col-md-9 col-6 mb-2 mb-lg-0">
+        <input type="search" name="search" class="form-control" [value]="search" placeholder="Search"
+            (search)="onSearch($event.target.value)" id="">
+    </div>
+    <div class="col-md-9 col-lg-9 mb-3 mb-lg-0">
+
+        <div class="d-flex justify-content-end gap-1">
+
+            <div class="text-right order-0 order-lg-1 mb-3 mr-2 mb-lg-0 w-30 ">
+                <select [(ngModel)]="type" class="form-control form-control-alternative">
+                    <option *ngFor="let item of [{label:'All',value:'0'},{label:'Specific',value:'1'}]"
+                        [value]="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <div class="text-right order-0 order-lg-1 mb-3 mb-lg-0">
+                <input type="date" *ngIf="type=='1'" [(ngModel)]="date" [value]="date" class="form-control">
+            </div>
+            <div class="text-right order-0 order-lg-1 mb-3 mb-lg-0">
+                <a href="javascript:void(0);" (click)="exportOrderVouchers()" class="btn btn-primary"> Export ordered
+                    vouchers </a>
+            </div>
+        </div>
+    </div>
+</div>

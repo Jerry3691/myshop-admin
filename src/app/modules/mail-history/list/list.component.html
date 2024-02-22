@@ -1,0 +1,49 @@
+<app-page-header>
+  <div class="row">
+    <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+      <input type="search" name="search" class="form-control" [value]="search" placeholder="Search"
+        (search)="onSearch($event.target.value)" id="">
+    </div>
+  </div>
+</app-page-header>
+<app-page-body title="Mail History">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Order no.</th>
+      <th scope="col">Consultant Name</th>
+      <th scope="col">Consultant Email</th>
+      <th scope="col">Client Name</th>
+      <th scope="col">Client Email</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Time/Date Mail Sent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="list.length; else noVoucherExist">
+      <tr *ngFor="let eq of list; let eqindex = index">
+        <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+        <td>{{eq.purchaseOrderNumbe}}</td>
+        <td>{{ eq.consultant_name }}</td>
+        <td>{{ eq.consultant_email }}</td>
+        <td>{{ eq.client_name | uppercase }}</td>
+        <td>{{eq.client_email}}</td>
+        <td> <button type="button" class="btn btn-primary read-more-btn" *ngIf="eq.notes"
+            (click)="readnotes(eq.notes)">Read notes</button></td>
+        <td> <button type="button" class="btn btn-primary read-more-btn" *ngIf="eq.email_data"
+            (click)="viewEmailData(eq.email_data)">View Mail</button></td>
+        <td>
+          {{eq.created_at|date:'dd/MM/yyyy, hh:mm a':'Australia/Adelaide'}}
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noVoucherExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No Mail found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

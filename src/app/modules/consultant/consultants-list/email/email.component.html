@@ -1,0 +1,131 @@
+<div class="modal-header">
+  <h2 class="modal-title">Delivery Address Details</h2>
+  <!-- <button type="button" class="btn-close" aria-label="Close" (click)="close()">&times;</button> -->
+</div>
+<form [formGroup]="emailGroup" (submit)="onSubmit()">
+  <div class="modal-body">
+    <div class=" row mb-3">
+      <div class="col-6">
+        <label>Consultant Email</label>
+        <input type="email" class="form-control" placeholder="Consultant Email" formControlName="consultant_email"
+          readonly />
+        <small class="form-text text-danger" *ngIf="
+        emailGroup.get('consultant_email')?.hasError('required') &&
+        (emailGroup.get('consultant_email').dirty ||
+        emailGroup.get('consultant_email').touched ||
+        isSubmit)
+        ">
+          Please enter consultant email
+        </small>
+      </div>
+      <div class="col-6">
+        <label>Consultant Name</label>
+        <input type="text" class="form-control" placeholder="Consultant Name" formControlName="consultant_name"
+          noExtraSpaces readonly />
+        <small class="form-text text-danger" *ngIf="
+          emailGroup.get('consultant_name')?.hasError('required') &&
+          (emailGroup.get('consultant_name').dirty ||
+          emailGroup.get('consultant_name').touched ||
+          isSubmit)
+          ">
+          Please enter consultant Name
+        </small>
+
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <label>Client Email</label>
+        <input type="email" class="form-control" placeholder="Client Email" formControlName="client_email"
+          noExtraSpaces />
+      </div>
+      <div class="col-6">
+        <label>Client Name</label>
+        <input type="text" class="form-control" placeholder="Consultant Name" formControlName="client_name" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <label>Purchase Order Number</label>
+        <input type="text" class="form-control" placeholder="Purchase Order Number"
+          formControlName="purchaseOrderNumber" maxlength="40" />
+        <small class="form-text text-danger" *ngIf="
+    emailGroup.get('purchaseOrderNumber')?.hasError('required') &&
+      (emailGroup.get('purchaseOrderNumber').dirty ||
+      emailGroup.get('purchaseOrderNumber').touched ||
+      isSubmit)
+    ">
+          Please enter purchase order number
+        </small>
+      </div>
+
+      <div class="col-6">
+        <label>Voucher Company Name</label>
+        <select formControlName="company_name" class="custom-select" (change)="onCompanyNameChange($event)">
+          <option *ngFor="let item of company_name" [value]="item">{{item}}</option>
+        </select>
+        <small class="form-text text-danger" *ngIf="
+    emailGroup.get('company_name')?.hasError('required') &&
+      (emailGroup.get('company_name').dirty ||
+      emailGroup.get('company_name').touched ||
+      isSubmit)
+    ">
+          Please select company name
+        </small>
+      </div>
+    </div>
+
+    <!-- Voucher Form Array -->
+    <div formArrayName="voucher" class="row">
+      <ng-container *ngFor="let voucherItem of emailGroup.get('voucher')?.controls; let i = index" [formGroupName]="i">
+        <div class="col-6 mb-3">
+          <div class="row">
+            <div class="col-5">
+              <label>Voucher Amount</label>
+              <select formControlName="value" class="custom-select">
+                <option *ngFor="let item of amount" [value]="item">{{item}}</option>
+              </select>
+              <small class="form-text text-danger" *ngIf="
+              voucherItem?.get('value')?.hasError('required') &&
+                (voucherItem?.get('value').dirty ||
+                voucherItem?.get('value').touched ||
+                isSubmit)
+              ">Please select voucher amount </small>
+            </div>
+            <div class="col-5">
+              <label for="">Voucher Quantity</label>
+              <input type="text" formControlName="quantity" class="form-control" appOnlyNumber [min]="1" maxlength="3">
+              <small class="form-text text-danger" *ngIf="
+              voucherItem?.get('quantity')?.hasError('required') &&
+                (voucherItem?.get('quantity').dirty ||
+                voucherItem?.get('quantity').touched ||
+                isSubmit)
+              ">Please enter voucher quantity </small>
+            </div>
+            <div class="col-2 align-self-end">
+              <button type="button" class="btn btn-danger" style="cursor: pointer;" *ngIf="i!=0"
+                (click)="removeVoucherItem(i)"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Add Voucher Button -->
+    <button type="button" class="btn btn-primary" (click)="addVoucherItem()" *ngIf="showAddButton">Add Voucher</button>
+
+
+    <div class="mb-3">
+      <label>Notes</label>
+      <textarea formControlName="notes" class="form-control" rows="4"></textarea>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </div>
+</form>

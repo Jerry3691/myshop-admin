@@ -1,0 +1,58 @@
+.preview{
+  width: 100px;
+}
+.preview_wrapper{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+.preview_wrapper .preview_item{
+  margin-bottom: 15px;
+  margin-right: 15px;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+.preview_wrapper .preview_item img{
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview_item  .preview_delete {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: #fff;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+.preview_item  .preview_delete:hover{
+  cursor: pointer;
+  opacity: 1;
+}
+.order_content td {
+  white-space: normal!important;
+}
+
+.order_detail {
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  min-height: 218px;
+}
+.order_detail label.form-label, .order_detail span  {
+  font-size: 13px;
+}
+.table-responsive.desktop-overflow-none {
+  padding: 10px;
+}

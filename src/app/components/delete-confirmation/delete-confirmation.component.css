@@ -1,0 +1,15 @@
+.modal-content, .heading, h6, .close span {
+  color: #fff;
+}
+/* .bg-gradient-danger {
+  width: 100%;
+} */
+.cancel-outline-button {
+  border: 1px solid #fff;
+}
+
+
+.modal-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}

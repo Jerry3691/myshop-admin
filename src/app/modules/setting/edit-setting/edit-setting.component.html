@@ -1,0 +1,245 @@
+<app-page-header>
+  <div class="row">
+  </div>
+</app-page-header>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row justify-content-center">
+    <div class="col-xl-9">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Edit Setting</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="updateSettingForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+            <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
+            <div class="px-lg-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group logoWrapper">
+                    <label class="form-control-label" for="logo">
+                      Logo <small>(Allowed image formats - .jpeg, .png, .jpg )</small>
+                    </label>
+                    <div class="custo-upload">
+                      <input #logoSelector type="file" hidden (change)="handleLogo($event.target.files)"
+                        formControlName="logo" class="form-control form-control-alternative" id="logo"
+                        accept=".jpeg,.png,.jpg">
+                      <div (click)="logoSelector.click()" for="logo" class="mb-0 logo__cnt"> <span
+                          *ngIf="!selectedFile || !selectedFile.src"> <i class="fas fa-upload"></i>
+                          Upload Logo</span>
+                        <ng-container *ngIf="selectedFile && selectedFile.src">
+                          <span class="edit_ico"> <i class="fas fa-pencil-alt"></i> </span>
+                          <img [src]="selectedFile.src" alt="">
+                        </ng-container>
+                      </div>
+
+                    </div>
+                    <!-- <input id="logo" type="file" class="form-control form-control-alternative" placeholder="Logo" /> -->
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="name">
+                      Name<span class="text-danger">*</span>
+                    </label>
+                    <input id="name" class="form-control form-control-alternative" maxlength="40" placeholder="Name"
+                      formControlName="name" autocomplete="name" />
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        updateSettingForm.get('name').hasError('required') &&
+                        (updateSettingForm.get('name').dirty ||
+                          updateSettingForm.get('name').touched ||
+                          submitted)
+                      ">
+                      Please enter name
+                    </small>
+
+                  </div>
+                </div>
+                <!-- </div>
+
+              <div class="row"> -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="company_name">
+                      Company name<span class="text-danger">*</span>
+                    </label>
+                    <input id="company_name" maxlength="40" class="form-control form-control-alternative"
+                      placeholder="company name" formControlName="company_name" autocomplete="company name" />
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        updateSettingForm.get('company_name').hasError('required') &&
+                        (updateSettingForm.get('company_name').dirty ||
+                          updateSettingForm.get('company_name').touched ||
+                          submitted)
+                      ">
+                      Please enter company name
+                    </small>
+
+                  </div>
+                </div> -->
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="company_email">
+                      Company email<span class="text-danger">*</span>
+                    </label>
+                    <input id="company_email" maxlength="40" class="form-control form-control-alternative"
+                      placeholder="Company Email" formControlName="email" autocomplete="email" />
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        updateSettingForm.get('email').hasError('required') &&
+                        (updateSettingForm.get('email').dirty ||
+                          updateSettingForm.get('email').touched ||
+                          submitted)
+                      ">
+                      Please enter company email
+                    </small>
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        !updateSettingForm.get('email').hasError('required') &&
+                        updateSettingForm.get('email').invalid
+                      ">
+                      Please enter valid company email
+                    </small>
+                    <small class="form-text text-danger  form-error" *ngIf="errorKey === 'email'">
+                      {{ error }}
+                    </small>
+                  </div>
+                </div>
+                <!-- </div>
+
+              <div class="row"> -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="company_number">
+                      Company number<span class="text-danger">*</span>
+                    </label>
+                    <input appOnlyNumber [plus]="true" id="company_number" maxlength="15"
+                      class="form-control form-control-alternative" placeholder="Company number"
+                      formControlName="company_number" autocomplete="company_number" />
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        updateSettingForm.get('company_number').hasError('required') &&
+                        (updateSettingForm.get('company_number').dirty ||
+                          updateSettingForm.get('company_number').touched ||
+                          submitted)
+                      ">
+                      Please enter company number
+                    </small>
+                    <small class="form-text text-danger  form-error" *ngIf="
+                        !updateSettingForm.get('company_number').hasError('required') &&
+                        updateSettingForm.get('company_number').invalid
+                      ">
+                      Please enter valid company number
+                    </small>
+                    <small class="form-text text-danger  form-error" *ngIf="errorKey === 'company_number'">
+                      {{ error }}
+                    </small>
+                  </div>
+                </div> -->
+
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="other_contact">
+                      Other contact
+                    </label>
+                    <input id="other_contact" class="form-control form-control-alternative" maxlength="40"
+                      placeholder="Other contact" formControlName="other_contact" autocomplete="other_contact" />
+                  </div>
+                </div> -->
+                <!-- </div>
+
+              <div class="row"> -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="pan">
+                      PAN
+                    </label>
+                    <input id="pan" class="form-control form-control-alternative" placeholder="PAN" maxlength="10"
+                      formControlName="PAN" autocomplete="pan" />
+                  </div>
+                </div> -->
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="additional_info">
+                      Additional info
+                    </label>
+                    <input id="additional_info" class="form-control form-control-alternative" maxlength="400"
+                      placeholder="Additional info" formControlName="additional_info" />
+                  </div>
+                </div> -->
+
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="website">
+                      Website url
+                    </label>
+                    <input id="website" type="url" class="form-control form-control-alternative" maxlength="100"
+                      placeholder="website" formControlName="website" autocomplete="website" />
+                  </div>
+                </div>
+
+                <!-- </div>
+                            <div class="row"> -->
+              </div>
+
+              <!-- <div class="row">
+              </div> -->
+
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="address">
+                      Address<span class="text-danger">*</span>
+                    </label>
+                    <textarea id="address" class="form-control form-control-alternative" maxlength="300"
+                      placeholder="address" formControlName="address" autocomplete="address"></textarea>
+                    <small class="form-text text-danger form-error" *ngIf="
+                        updateSettingForm.get('address').hasError('required') &&
+                        (updateSettingForm.get('address').dirty ||
+                          updateSettingForm.get('address').touched ||
+                          submitted)
+                      ">
+                      Please enter address
+                    </small>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="voucher_approve_amount">
+                      Voucher approve amount<span class="text-danger">*</span>
+                    </label>
+                    <input type="text" id="voucher_approve_amount" class="form-control form-control-alternative"
+                      maxlength="300" placeholder="voucher approve amount" formControlName="voucher_approve_amount"
+                      appOnlyNumber autocomplete="voucher approve amount">
+                    <small class="form-text text-danger form-error" *ngIf="
+                        updateSettingForm.get('voucher_approve_amount').hasError('required') &&
+                        (updateSettingForm.get('voucher_approve_amount').dirty ||
+                          updateSettingForm.get('voucher_approve_amount').touched ||
+                          submitted)
+                      ">
+                      Please enter voucher approve amount
+                    </small>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary my-4">
+                Update Setting
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

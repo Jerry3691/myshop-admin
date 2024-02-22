@@ -1,0 +1,11 @@
+.modal-header-custom {
+    position: relative;
+}
+.modal-header-custom h3 {
+    flex: 0 0 100%;
+}
+.modal-header-custom .close {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}

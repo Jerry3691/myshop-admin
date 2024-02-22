@@ -1,0 +1,95 @@
+<app-page-header>
+  <div class="row align-items-end">
+    <div class="col-md-12 col-lg-9 order-1 order-lg-0">
+      <div class="row align-items-end">
+        <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+          <label for="" class="text-dark">Filter by category</label>
+          <p-treeSelect [(ngModel)]="category" (onNodeSelect)="categoryChange($event)" [options]="categoryList"
+            placeholder="Select category"></p-treeSelect>
+        </div>
+        <div class="col-lg-3 col-6 mb-2 mb-lg-0">
+          <input type="search" name="search" class="form-control" [value]="search" placeholder="Search"
+            (search)="onSearch($event.target.value)" id="">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-lg-3 text-right order-0 order-lg-1 mb-3 mb-lg-0">
+      <a routerLink="/products/add" class="btn btn-primary">
+        Add New Product
+      </a>
+    </div>
+  </div>
+</app-page-header>
+<app-page-body title="products">
+  <button type="button" class=" btn btn-outline-secondary mb-0" (click)="viewAll()" additional>View all</button>
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th> <!-- Additional column for the draggable handle -->
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">category</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Price</th>
+      <th scope="col">Available</th>
+      <th scope="col">Status</th>
+      <th scope="col">Created at</th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody cdkDropList [cdkDropListData]="product" (cdkDropListDropped)="onDrop($event)">
+    <ng-container *ngIf="product?.length; else noProductExist">
+      <tr *ngFor="let eq of product; let eqindex = index" cdkDrag [cdkDragData]="eq">
+        <td> <!-- Draggable handle column -->
+          <div cdkDragHandle class="drag-handle">
+            <i class="fas fa-arrows-alt"></i>
+          </div>
+        </td>
+        <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+        <td>{{ eq.name | titlecase }}</td>
+        <td>{{ eq.category_name || "N/A" }}</td>
+        <td>{{ eq.quantity || "N/A" }}</td>
+        <td><span *ngIf="eq.price">$</span>{{ eq.price || "N/A" }} <span *ngIf="eq.price">AUD</span></td>
+        <td>
+          <span class="badge badge-dot mr-4" *ngIf="eq.availability">
+            <i class="bg-success"></i>
+            Yes
+          </span>
+          <span class="badge badge-dot mr-4" *ngIf="!eq.availability">
+            <i class="bg-danger"></i>
+            No
+          </span>
+        </td>
+        <td>
+          <span class="badge badge-dot mr-4">
+            <i class="bg-success"></i>
+            Active
+          </span>
+        </td>
+        <td>{{ eq.created_at | date:'dd/MM/yyyy' }}</td>
+        <td class="text-right dropdown-fixed">
+          <div ngbDropdown [placement]="eqindex > 7 ? 'left' : 'left'">
+            <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+              <i class="fas fa-ellipsis-v"></i>
+            </a>
+            <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+              <a (click)="deleteProduct(eq.id, eqindex)" class="dropdown-item" href="javascript:void(0)">
+                Delete product
+              </a>
+              <a class="dropdown-item" [routerLink]="'/products/edit/' + eq.id">
+                Edit product
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noProductExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No record found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

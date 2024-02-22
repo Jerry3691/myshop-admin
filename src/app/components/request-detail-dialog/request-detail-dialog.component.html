@@ -1,0 +1,51 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h6 class="modal-title" id="modal-title-notification">Request details</h6>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="activeModal.close(false)"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="py-3">
+      <div class="images__container" *ngIf="data?.images">
+        <img class="rq__img"
+          *ngFor="let image of data?.images | imagesStrToArr"
+          [src]="imgUrl + image"
+          alt=""
+        />
+      </div>
+      <table class="table table-bordered">
+        <tr>
+          <th>Reference Id</th>
+          <td>{{ data?.ref_id }}</td>
+        </tr>
+        <tr>
+          <th>Equipment</th>
+          <td>{{ data.equipment }}</td>
+        </tr>
+        <tr>
+          <th>Reason</th>
+          <td class="td-table">{{ data.reason }} {{ data.reason }}</td>
+        </tr>
+        <tr>
+          <th>Reported on</th>
+          <td>{{ data?.created_at | date }}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>{{ data?.status == 1 ? "Open" : "In progress" }}</td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td>{{ data?.type == 1 ? "Complaint" : "Service" }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
