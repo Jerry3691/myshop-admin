@@ -3,8 +3,8 @@
   "version": "1.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 3.27.198.152",
-    "dev": "ng serve",
+    "start": "ng serve --host 52.62.79.130",
+    "dev": "ng serve " ,
     "build": "ng build --configuration=production && cp .htaccess dist",
     "build:dev": "ng build --configuration=production --base-href='/myshop-admin/dist/' && cp .htaccess dist",
     "test": "ng test",

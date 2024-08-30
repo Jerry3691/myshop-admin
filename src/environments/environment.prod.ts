@@ -8,8 +8,8 @@ const dev = {
   serverUrl: "http://3.27.198.152:3000/",
 };
 const staging = {
-  endPoint: "http://3.27.198.152:3000/api/v1/",
-  serverUrl: "http://3.27.198.152:3000/",
+  endPoint: "http://52.65.79.130:3000/api/v1/",
+  serverUrl: "http://52.65.79.130:3000/",
 };
 const live = {
   endPoint: "http://3.27.198.152:3000/api/v1/",

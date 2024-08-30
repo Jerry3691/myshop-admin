@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -45,7 +45,7 @@ export class ConsultantsService {
   };
 
   updateConsultantStatus = (consultantId: string, newStatus: string) => {
-    return this.httpService.patchRequest("auth/", { id: consultantId, isApprove: newStatus });
+    return this.httpService.patchRequest("auth/accept-reject/", { userId: consultantId, type: newStatus });
   };
 
   // updateUser = (userId: string, formData: FormData) => {

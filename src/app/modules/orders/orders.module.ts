@@ -8,14 +8,18 @@ import { OrdersListResolver } from './orders-list.resolver';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { OrderDetailResolver } from './order-detail.resolver';
 import { OrderDetailsComponent } from './orders-details/order_details.component';
-import { ListRowComponent } from './ list-row.component';
+import { ListRowComponent } from './list-row.component';
+import { ListRowPaymentStatusComponent } from './list-row-payment-status.component';
+import { ListRowPaymentModeComponent } from './list-row-payment-mode.component';
 
 
 @NgModule({
   declarations: [
     OrdersComponent,
     OrderDetailsComponent,
-    ListRowComponent
+    ListRowComponent,
+    ListRowPaymentStatusComponent,
+    ListRowPaymentModeComponent
   ],
   imports: [
     SharedModule,

@@ -22,6 +22,8 @@
       <th scope="col">Client Address</th>
       <th scope="col">Total</th>
       <th scope="col">Order Status</th>
+      <th scope="col">Is Payment</th>
+      <th scope="col">Payment Mode</th>
       <th scope="col">Created On</th>
       <th scope="col"></th>
     </tr>
@@ -37,7 +39,10 @@
           <td>{{ eq.consultant_email || "N/A" }}</td>
           <td>{{eq.address}}</td>
           <td>$ {{eq.grand_total}} AUD</td>
-          <td><list-row [eq]="eq" [eqindex]="eqindex" (statusChange)="changeStatus($event)"></list-row></td>
+          <td><list-row-order-status [eq]="eq" [eqindex]="eqindex" (statusChange)="changeOrderStatus($event)"></list-row-order-status></td>
+          <td><list-row-payment-status [eq]="eq" [eqindex]="eqindex" (statusChange)="changePaymentStatus($event)"></list-row-payment-status></td>
+          <td><list-row-payment-mode [eq]="eq" [eqindex]="eqindex" (statusChange)="changePaymentMode($event)"></list-row-payment-mode></td>
+
           <td>{{eq.ordered_placed_date|date:'dd/MM/yyyy, hh:mm a':'GMT+0930'}}</td>
           <td class="text-right dropdown-fixed">
             <div ngbDropdown [placement]="eqindex > 7 ? 'left' : 'left'">

@@ -22,13 +22,16 @@ export class ConsultantsListComponent implements OnInit {
   count: number = 1;
   isStatusChange: boolean = false;
   search: string = "";
+  serverURL=''
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private consultantService: ConsultantsService,
     private toastrService: ToastrService,
     private modalService: NgbModal
-  ) { }
+  ) {
+    this.serverURL=consultantService.serverUrl
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe((res) => {
@@ -68,19 +71,18 @@ export class ConsultantsListComponent implements OnInit {
       },
     });
   };
-
-  changeStatus = (consultantId: string, newStatus: string, index: number): void => {
-    this.consultantService.updateConsultantStatus(consultantId, newStatus).subscribe({
+  changeStatus = (event:any): void => {
+    let { id, newStatus, index } = event
+    this.consultantService.updateConsultantStatus(id, newStatus).subscribe({
       next: (res: any): void => {
         let user: any = this.users[index];
         user.isApprove = newStatus;
         this.users[index] = user;
-        this.isStatusChange = false;
         this.toastrService.success('Status change successfully');
-
       },
-      error: (error: HttpErrorResponse): void => {
-        this.toastrService.error(error.error.message || 'Something went wrong');
+      error: (error:any): void => {
+        console.log(error())
+        this.toastrService.error(error().message||error.error.message || 'Something went wrong');
       }
     })
   }

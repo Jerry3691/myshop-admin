@@ -34,20 +34,7 @@ export const AdminLayoutRoutes: Routes = [
             (m) => m.CategoriesModule
           ),
       },
-      {
-        path: "voucher",
-        loadChildren: () =>
-          import("src/app/modules/vouchers/vouchers.module").then(
-            (m) => m.VouchersModule
-          ),
-      },
-      {
-        path: "vouchers",
-        loadChildren: () =>
-          import("src/app/modules/vouchers/vouchers.module").then(
-            (m) => m.VouchersModule
-          ),
-      },
+
       {
         path: "orders/product",
         loadChildren: () =>

@@ -145,19 +145,9 @@ export class AuthService {
     localStorage.clear();
   };
 
-  registerUser(credential: {
-    "first_name": string,
-    "last_name": string,
-    "email": string,
-    "password": string,
-    "isAdmin": boolean
-  }): Observable<any> {
+  registerUser(formData: FormData): Observable<any> {
     return this.httpService
-      .postRequest("auth/register", {
-        ...credential,
-        "device_token": ''
-        // device_token: this.fcmService.token,
-      });
+      .postRequest("auth/create-user",formData);
   }
   updateConsultant(credential: {
     "first_name"?: string,

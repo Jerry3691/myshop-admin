@@ -10,17 +10,20 @@ import { ConsultantsListResolver } from './consultants-list.resolver';
 import { RegisterComponent } from './register/register.component';
 import { EmailComponent } from './consultants-list/email/email.component';
 import { DirectivesModule } from 'src/app/core/directives/directives.module';
+import { ListRowUserStatusComponent } from './consultants-list/list-row.component';
+import { ImageUploadModule } from 'src/app/components/image-upload/image-upload.module';
 
 @NgModule({
   declarations: [
-    ConsultantsListComponent, RegisterComponent, EmailComponent
+    ConsultantsListComponent, RegisterComponent, EmailComponent,ListRowUserStatusComponent
   ],
   imports: [
     SharedModule,
     ComponentsModule,
     ConsultantsRoutingModule,
     DragDropModule,
-    DirectivesModule
+    DirectivesModule,
+    ImageUploadModule
   ],
   providers: [ConsultantsListResolver, ConsultantsDetailResolver]
 })

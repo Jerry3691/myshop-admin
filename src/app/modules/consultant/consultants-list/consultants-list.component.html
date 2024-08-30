@@ -16,6 +16,7 @@
       <th scope="col">First name</th>
       <th scope="col">Last name</th>
       <th scope="col">Email</th>
+      <th scope="col">Doc</th>
       <th scope="col">Status</th>
       <th scope="col">Created On</th>
       <th scope="col"></th>
@@ -29,27 +30,10 @@
         <td>{{ user.last_name }}</td>
         <td>{{ user.email }}</td>
         <td>
-          <ng-container *ngIf="isStatusChange">
-            <select [ngModel]="user.isApprove" class="" (change)="changeStatus(user.id,$event.target.value,eqindex)">
-              <option [value]="1">Approve</option>
-              <option [value]="2">Decline</option>
-              <option [value]="3">Pending</option>
-            </select>
-          </ng-container>
-          <ng-container *ngIf="!isStatusChange">
-            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==1" (click)="isStatusChange=true">
-              <i class="bg-success"></i>
-              Approved
-            </span>
-            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==2" (click)="isStatusChange=true">
-              <i class="bg-danger"></i>
-              Declined
-            </span>
-            <span class="badge badge-dot mr-4" *ngIf="user.isApprove==3" (click)="isStatusChange=true">
-              <i class="bg-warning"></i>
-              Pending
-            </span>
-          </ng-container>
+          <a role="button" class="btn btn-primary-outline" [href]="serverURL+user.document" target="_blank" *ngIf="user.document">View</a>
+          <span *ngIf="!user.document">N/A</span>
+        </td>
+        <td><list-row-user-status [user]="user" [eqindex]="eqindex" (statusChange)="changeStatus($event)"></list-row-user-status>
         </td>
         <td>{{ user.created_at | date:'dd/MM/yyyy' }}</td>
         <td>

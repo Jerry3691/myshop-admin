@@ -50,7 +50,7 @@ export class OrdersComponent implements OnInit {
       // }
     });
   }
-  changeStatus = (event: any): void => {
+  changeOrderStatus = (event: any): void => {
     let { orderId, newStatus, index } = event
     this.ordersService.changeOrderStatus(orderId, newStatus).subscribe({
       next: (res: any): void => {
@@ -65,16 +65,37 @@ export class OrdersComponent implements OnInit {
       }
     })
   }
-  // categoryChange = (event:any) => {
-  //   console.log(event.node)
-  //   this.category=event.node
-  //   this.router.navigate([], {
-  //     relativeTo: this.route,
-  //     queryParams: {
-  //       category: event.node.data,
-  //     },
-  //   });
-  // };
+
+  changePaymentStatus = (event: any): void => {
+    let { orderId, newStatus, index } = event
+    this.ordersService.changePaymentStatus(orderId, newStatus).subscribe({
+      next: (res: any): void => {
+        let order: any = this.orders[index];
+        order.isPayment = newStatus == '1' ? 'Yes' :  'No';
+        order.isPayment_ = newStatus;
+        this.orders[index] = order;
+        this.toastrService.success('Payment status change successfully');
+      },
+      error: (error: HttpErrorResponse): void => {
+        this.toastrService.error(error.error.message || 'Something went wrong');
+      }
+    })
+  }
+  changePaymentMode = (event: any): void => {
+    let { orderId, newStatus, index } = event
+    this.ordersService.changePaymentMode(orderId, newStatus).subscribe({
+      next: (res: any): void => {
+        let order: any = this.orders[index];
+        order.order_payment_mode = newStatus == '1' ? 'Cash' : newStatus == 2 ? 'Demand draft' : 'None';
+        order.order_payment_mode_ = newStatus;
+        this.orders[index] = order;
+        this.toastrService.success('Payment mode change successfully');
+      },
+      error: (error: HttpErrorResponse): void => {
+        this.toastrService.error(error.error.message || 'Something went wrong');
+      }
+    })
+  }
   onSearch = (value: string) => {
     this.router.navigate([], {
       relativeTo: this.route,

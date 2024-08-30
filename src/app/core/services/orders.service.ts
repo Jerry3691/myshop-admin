@@ -77,6 +77,12 @@ export class OrdersService {
   }
 
   changeOrderStatus:Function=(id:number,status:number):Observable<any>=>{
-    return this.httpService.getRequest(`order/change/${id}/${status}`);
+    return this.httpService.getRequest(`order/change/status/${id}/${status}`);
+  }
+  changePaymentStatus:Function=(id:number,status:number):Observable<any>=>{
+    return this.httpService.getRequest(`order/change/isPayment/${id}/${status}`);
+  }
+  changePaymentMode:Function=(id:number,status:number):Observable<any>=>{
+    return this.httpService.getRequest(`order/change/paymentMode/${id}/${status}`);
   }
 }

@@ -24,6 +24,7 @@
         <div class="card-body">
           <form [formGroup]="registerForm" (submit)="onSubmit()" autocomplete="off">
             <div class="mb-3">
+              <label>First Name</label>
               <input type="text" class="form-control" placeholder="First Name" formControlName="first_name" />
               <small class="form-text text-danger" *ngIf="
                 registerForm.get('first_name')?.hasError('required') &&
@@ -36,10 +37,12 @@
             </div>
 
             <div class="mb-3">
+              <label>Last Name</label>
               <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name" />
             </div>
 
             <div class="mb-3" *ngIf="!isEdit">
+              <label>Email Address</label>
               <input type="email" class="form-control" placeholder="Email" formControlName="email" />
               <small class="form-text text-danger" *ngIf="
                 registerForm.get('email')?.hasError('required') &&
@@ -59,10 +62,36 @@
                 Please enter a valid email
               </small>
             </div>
+ <!-- country code -->
+ <div class="mb-3">
+  <label>Country Code</label>
 
+  <input type="text" class="form-control" placeholder="Country Code" formControlName="country_code"
+    autocomplete="" />
+  <small class="form-text text-danger" *ngIf="
+    registerForm.get('country_code')?.hasError('required') &&
+    (registerForm.get('country_code').dirty ||
+    registerForm.get('country_code').touched ||
+    submitted)
+  ">
+    Please enter country code
+  </small>
+  <small class="form-text text-danger" *ngIf="
+  !registerForm.get('country_code')?.hasError('required') &&
+  registerForm.get('country_code').invalid &&
+  (registerForm.get('country_code').dirty ||
+  registerForm.get('country_code').touched ||
+  submitted)
+">
+  Please enter a valid country code
+</small>
+</div>
+<!-- end country code -->
             <!-- mobile -->
             <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Phone" formControlName="mobile"
+              <label>Mobile Number</label>
+
+              <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile"
                 autocomplete="" />
               <small class="form-text text-danger" *ngIf="
                 registerForm.get('mobile')?.hasError('required') &&
@@ -70,44 +99,34 @@
                 registerForm.get('mobile').touched ||
                 submitted)
               ">
-                Please enter phone
+                Please enter mobile number
               </small>
+              <small class="form-text text-danger" *ngIf="
+              !registerForm.get('mobile')?.hasError('required') &&
+              registerForm.get('mobile').invalid &&
+              (registerForm.get('mobile').dirty ||
+              registerForm.get('mobile').touched ||
+              submitted)
+            ">
+              Please enter a valid country code
+            </small>
+
             </div>
             <!-- end mobile -->
 
+              <div class="mb-3">
+                <label>Upload Document</label>
 
-            <div class="mb-3">
-              <input type="password" class="form-control" placeholder="Password" formControlName="password"
-                autocomplete="pppp" />
+<input type="file" class="form-control" (change)="onFileSelected($event)" accept=".jpg,.png,.jpeg, .pdf" class="form-control" formControlName="doc" />
               <small class="form-text text-danger" *ngIf="
-                registerForm.get('password')?.hasError('required') &&
-                (registerForm.get('password').dirty ||
-                registerForm.get('password').touched ||
-                submitted)
+               !doc&&
+                (registerForm.get('doc').dirty ||
+                registerForm.get('doc').touched ||
+                 submitted)
               ">
-                Please enter password
+                Please upload an document
               </small>
             </div>
-
-            <!-- cpassword -->
-            <div class="mb-3">
-              <input type="password" class="form-control" formControlName="cpassword" required>
-              <div *ngIf="registerForm.get('cpassword')?.errors&&(submitted || registerForm.get('cpassword')?.dirty||registerForm.get('password')?.touched)">
-                <small class="lq-error" *ngIf="registerForm.get('cpassword')?.hasError('required')">Confirm password is required</small>
-                <small class="lq-error" *ngIf="registerForm.get('cpassword')?.hasError('passwordsNotMatching')"> Confirm password does not match</small>
-                </div>
-            </div>
-            <!-- end cpassword -->
-
-            <small class="form-text text-danger" *ngIf="
-              !registerForm.get('email')?.hasError('required') &&
-              submitted &&
-              loginFailed &&
-              errMessage
-            ">
-              {{ errMessage }}
-            </small>
-
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>

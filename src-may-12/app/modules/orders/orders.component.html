@@ -1,0 +1,65 @@
+<app-page-header>
+  <div class="row align-items-end">
+    <div class="col-md-12 col-lg-3 order-1 order-lg-0">
+      <input type="search" name="search" class="form-control" [value]="search" placeholder="Search"
+        (search)="onSearch($event.target.value)" id="">
+    </div>
+    <!-- <div class="col-md-12 col-lg-9 text-right order-0 order-lg-1 mb-3 mb-lg-0">
+      <button type="button" class="btn btn-primary" (click)="exportOrders()">
+        Export orders
+      </button>
+    </div> -->
+  </div>
+</app-page-header>
+<app-page-body title="orders">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Order Number</th>
+      <th scope="col">Client Name</th>
+      <th scope="col">User Name</th>
+      <th scope="col">User Email</th>
+      <th scope="col">Client Address</th>
+      <th scope="col">Total</th>
+      <th scope="col">Order Status</th>
+      <th scope="col">Created On</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="order_content">
+    <ng-container *ngIf="orders.length; else noProductExist">
+      <ng-container *ngFor="let eq of orders; let eqindex = index">
+        <tr>
+          <td>{{ (currentPage - 1) * perPage + (eqindex + 1) }}</td>
+          <td>{{ eq.order_number || 'N/A'}}</td>
+          <td>{{ (eq.client_name| titlecase) || "N/A" }}</td>
+          <td>{{ (eq.consultant_name| titlecase ) || "N/A" }}</td>
+          <td>{{ eq.consultant_email || "N/A" }}</td>
+          <td>{{eq.address}}</td>
+          <td>$ {{eq.grand_total}} AUD</td>
+          <td><list-row [eq]="eq" [eqindex]="eqindex" (statusChange)="changeStatus($event)"></list-row></td>
+          <td>{{eq.ordered_placed_date|date:'dd/MM/yyyy, hh:mm a':'GMT+0930'}}</td>
+          <td class="text-right dropdown-fixed">
+            <div ngbDropdown [placement]="eqindex > 7 ? 'left' : 'left'">
+              <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+                <a [routerLink]="'./'+eq.order_id" class="dropdown-item">
+                  Order details
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+    <ng-template #noProductExist>
+      <tr>
+        <th class="no-record-found" colspan="8">No record found</th>
+      </tr>
+    </ng-template>
+  </tbody>
+  <app-pagination [currentPage]="currentPage" [totalPage]="totalPage"
+    (pageChange)="onPageChange($event)"></app-pagination>
+</app-page-body>

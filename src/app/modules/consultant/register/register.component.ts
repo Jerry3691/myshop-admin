@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -17,19 +17,20 @@ returnUrl = ''
 title='Add User';
 isEdit=false;
 id='';
-  userData: any;
+doc: any;
+userData: any;
+
 constructor(
   private authService: AuthService,
   private fb: FormBuilder,
   private toasterService: ToastrService,
   private router: Router,
   private route: ActivatedRoute
-) { 
-  
-}
-ngOnInit(): void {
+  ) {
 
-    this.init()  
+  }
+  ngOnInit(): void {
+    this.init()
   }
 
   private init(){
@@ -50,27 +51,32 @@ ngOnInit(): void {
       }
     })
   }
-
   private createAddConsultantForm():void{
     this.registerForm=this.fb.group({
       first_name:['',Validators.required],
       last_name:[''],
       email:['',[Validators.required,Validators.email,Validators.pattern( '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
-      mobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      password:['',[Validators.required,confirmPasswordValidator]],
-      cpassword: ['', [Validators.required,confirmPasswordValidator]],  
+      mobile: ['', [Validators.required, Validators.pattern("^[0-9]{8-15}$")]],
+      country_code: ['+', [Validators.required, Validators.pattern("^\\+[0-9]{1,3}$")]],
+      doc:[null,[Validators.required]]
     });
   }
 
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
 
- 
+    this.doc = file;
+  }
+
 
   private createEditConsultantForm():void{
     this.registerForm=this.fb.group({
       first_name:['',Validators.required],
       last_name:[''],
-      // email:['',[Validators.required,Validators.email,Validators.pattern( '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
-      password:['',[Validators.pattern('')]],
+      email:['',[Validators.required,Validators.email,Validators.pattern( '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
+      mobile: ['', [Validators.required, Validators.pattern("^[0-9]{8-15}$")]],
+      country_code: ['+', [Validators.required, Validators.pattern("^\\+[0-9]{1,3}$")]],
+      doc:[null,[Validators.required]]
     });
   }
 
@@ -83,7 +89,7 @@ ngOnInit(): void {
 
   onSubmit = () => {
     this.submitted = true
-    this.loginFailed = false 
+    this.loginFailed = false
 
     if (this.registerForm.invalid) {
       return;
@@ -91,12 +97,19 @@ ngOnInit(): void {
     if(this.isEdit){
       this.editConsultant(this.registerForm.value,this.id)
     }else{
-      this.addNewConsultant();
+      this.addNewConsultant(this.registerForm.value);
     }
   }
 
-  private addNewConsultant(){
-    this.authService.registerUser({ ...this.registerForm.value,isAdmin:true }).subscribe(
+  private addNewConsultant(payload){
+    delete payload.doc;
+    const formData = new FormData();
+    for (const property in payload) {
+      let value = this.registerForm.value[property];
+      formData.append(property, value);
+    }
+    formData.append('image', (this.doc ? this.doc : ''));
+    this.authService.registerUser(formData).subscribe(
       {
         next: ((res: any) => {
           this.toasterService.success('user added successfully');
@@ -128,26 +141,3 @@ if(data.password) payload['password']=data.password;
       })
   }
 }
-export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-
-  if (!control.parent || !control) {
-    return null;
-  }
-
-  const password = control.parent.get('password');
-  const cpassword = control.parent.get('confirm_password');
-
-  if (!password || !cpassword) {
-    return null;
-  }
-
-  if (cpassword.value === '') {
-    return null;
-  }
-
-  if (password.value === cpassword.value) {
-    return null;
-  }
-
-  return { passwordsNotMatching: true };
-};
